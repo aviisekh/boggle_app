@@ -9,7 +9,7 @@ class Board < ApplicationRecord
   validates_presence_of :tiles
 
   before_validation :generate_random_tiles, on: :create
-  before_create :generate_valid_words
+  before_create :populate_valid_words
 
 
   def puts_console
@@ -51,9 +51,9 @@ class Board < ApplicationRecord
     self.tiles = self.tiles.presence || ('A'..'Z').to_a.shuffle[0, 16]
   end
 
-  def generate_valid_words
+  def populate_valid_words
     dictionary       = File.read("vendor/dictionary.txt").split("\n")
-    self.valid_words = dictionary.select { |word| is_word_acceptable?(word) }.map(&:upcase)
+    self.valid_words = dictionary.select { |word| is_word_acceptable?(word) }.map(&:upcase_and_strip)
   end
 
   def is_word_acceptable?(word)
