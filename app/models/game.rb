@@ -19,7 +19,7 @@ class Game < ApplicationRecord
   end
 
   def submit_word! word
-    if !time_out? || valid_word?(word)
+    if !time_out? and valid_word?(word)
       self.found_words << word
       self.save!
       true
