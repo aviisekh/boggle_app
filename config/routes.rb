@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :games, only: [:create] do
     collection do
       get '/:token_id', to: 'games#show'
-      post '/:token_id/submit_word', to: 'game#submit_word'
+      post '/:token_id/submit_word', to: 'games#submit_word'
     end
   end
 end
