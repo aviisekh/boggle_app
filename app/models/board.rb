@@ -1,32 +1,26 @@
 class Board < ApplicationRecord
+  attr_readonly :tiles, :valid_words
+
   serialize :tiles, Array
+  serialize :valid_words, Array
 
   has_many :games
+
   validates_presence_of :tiles
-  before_validation :generate_random_tiles
 
-  def valid_word?(word)
-    word = BoggleWord.new(word)
-    any_tile? do |tile|
-      is_word_composable_from_tile?(tile, word)
-    end
-  end
+  before_validation :generate_random_tiles, on: :create
+  before_create :generate_valid_words
 
-  def print_to_console
+
+  def puts_console
     puts "Here's the board:"
-    normalized_tiles.each(&:print_to_console)
-  end
-
-  def valid_words
-    dictionary = File.read("vendor/dictionary.txt").split("\n")
-    dictionary.select { |word| valid_word?(word) }.map(&:upcase)
-  end
-
-  def normalized_tiles
-    tiles.each_with_index.map { |letter, position| Tile.new(letter, position) }
+    normalized_tiles.each(&:puts_console)
   end
 
   private
+  def normalized_tiles
+    tiles.each_with_index.map { |letter, position| Tile.new(letter, position) }
+  end
 
   def any_tile?
     normalized_tiles.any? { |tile| yield(tile) }
@@ -44,7 +38,7 @@ class Board < ApplicationRecord
       )
     end
   end
-  
+
   # Gets the adjacent tiles
   # @param tile [Tile]
   # @returns Array<Tile>
@@ -55,6 +49,18 @@ class Board < ApplicationRecord
 
   def generate_random_tiles
     self.tiles = self.tiles.presence || ('A'..'Z').to_a.shuffle[0, 16]
+  end
+
+  def generate_valid_words
+    dictionary       = File.read("vendor/dictionary.txt").split("\n")
+    self.valid_words = dictionary.select { |word| is_word_acceptable?(word) }.map(&:upcase)
+  end
+
+  def is_word_acceptable?(word)
+    word = BoggleWord.new(word)
+    any_tile? do |tile|
+      is_word_composable_from_tile?(tile, word)
+    end
   end
 end
 

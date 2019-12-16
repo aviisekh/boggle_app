@@ -10,7 +10,7 @@ class Tile
     @letter == letter
   end
 
-  def print_to_console
+  def puts_console
     print "#{letter} #{"\n" if position % 4 == 3}"
   end
 
