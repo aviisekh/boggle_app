@@ -8,9 +8,8 @@ class Board < ApplicationRecord
 
   validates_presence_of :tiles
 
-  before_validation :generate_random_tiles, on: :create
+  before_validation :generate_random_tiles
   before_create :populate_valid_words
-
 
   def puts_console
     puts "Here's the board:"
