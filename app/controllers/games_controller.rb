@@ -6,24 +6,24 @@ class GamesController < ApplicationController
     board = Board.create!
     @game = Game.create(board: board)
     respond_to do |format|
-      format.json { render json: @game.as_json, status: :ok }
+      format.json { render json: @game, status: :ok }
     end
   end
 
   def show
     respond_to do |format|
-      format.json { render json: @game.as_json, status: :ok }
+      format.json { render json: @game, status: :ok }
     end
   end
 
   def submit_word
     if @game.submit_word!(params[:word])
       respond_to do |format|
-        format.json { render json: @game.as_json, status: :ok }
+        format.json { render json: @game, status: :ok }
       end
     else
       respond_to do |format|
-        format.json { render json: @game.as_json, status: :unprocessable_entity }
+        format.json { render json: @game, status: :unprocessable_entity }
       end
     end
   end
@@ -31,6 +31,6 @@ class GamesController < ApplicationController
   private
 
   def set_game_from_token
-    @game = Game.find_by_token(params[:token_id])
+    @game = Game.find(token: params[:token_id])
   end
 end
