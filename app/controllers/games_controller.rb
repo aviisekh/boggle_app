@@ -31,6 +31,6 @@ class GamesController < ApplicationController
   private
 
   def set_game_from_token
-    @game = Game.find(token: params[:token_id])
+    @game = Game.find_by(token: params[:token_id])
   end
 end

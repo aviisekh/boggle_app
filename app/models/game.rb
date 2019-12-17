@@ -1,5 +1,5 @@
 class Game < ApplicationRecord
-  GAME_DURATION = 1.hour.minutes
+  GAME_DURATION = 2.minutes
   has_secure_token :token
   serialize :found_words, Array
   belongs_to :board
@@ -26,6 +26,10 @@ class Game < ApplicationRecord
     else
       false
     end
+  end
+
+  def remaining_time
+    [((started_at + GAME_DURATION) - Time.current), 0].max
   end
 
   def time_out?
