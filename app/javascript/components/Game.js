@@ -19,11 +19,9 @@ class Game extends React.Component {
   };
 
   startTimer = () => {
-    console.log("startTimer");
-    var intervalId = setInterval(()=>{
-      console.log(this.state.remainingTime);
+    var intervalId = setInterval(() => {
       if (this.state.remainingTime > 0) {
-        this.setState({ remainingTime: this.state.remainingTime -1 });
+        this.setState({remainingTime: this.state.remainingTime - 1});
       } else {
         this.endGame()
       }
@@ -31,10 +29,14 @@ class Game extends React.Component {
     this.setState({intervalId: intervalId});
   };
 
-  endGame =() => {
+  endTimer = () => {
     clearInterval(this.state.intervalId);
-    this.setState({ isGameStarted: false, isGameEnded: true })
-  }
+  };
+
+  endGame = () => {
+    this.endTimer();
+    this.setState({isGameStarted: false, isGameEnded: true})
+  };
 
   startGame = () => {
     fetch(BASE_URL + "/games", {
@@ -49,7 +51,7 @@ class Game extends React.Component {
         console.log(json.tiles);
         this.setState({
           tiles: json.tiles,
-          remainingTime: json.remaining_time,
+          remainingTime: json.remainingTime,
           isGameStarted: true,
           gameId: json.id
         }, () => {
@@ -62,9 +64,9 @@ class Game extends React.Component {
     return (
       <div className="boggle">
         <div>
-          <Timer remainingTime={this.state.remainingTime}/>
+          {this.state.isGameStarted && <Timer timer={this.props.remainingTime}/>}
           <Board board={this.state.tiles}/>
-          {this.state.isGameStarted ? null : <FlareGun startGame={this.startGame}/>}
+          {!this.state.isGameStarted && <FlareGun startGame={this.startGame}/>}
           <ScoreBoard/>
           <HallOfFame/>
         </div>
