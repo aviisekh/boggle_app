@@ -1,13 +1,14 @@
 import React from "react"
 
-class FlareGun extends React.Component {
-  render() {
-    return (
-      <div className="FlareGun">
-        Flare gun
-      </div>
-    );
-  }
+
+const FlareGun = ({ startGame }) => {
+
+  return(
+    <div className="flaregun">
+      <button type="button" onClick={startGame} className="btn btn-lg start-button">Start New Game</button>
+    </div>
+  )
 }
+
 
 export default FlareGun
