@@ -1,8 +1,9 @@
 import React from "react"
 import CellRow from "./CellRow";
 
-const Board = function ({board}) {
-  const CellRows = board.map(function (row, index) {
+const Board =  ({board}) => {
+
+  const CellRows = board.map( (row, index)  => {
     return (<CellRow row={row} key={index}></CellRow>)
   });
 

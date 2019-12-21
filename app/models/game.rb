@@ -29,7 +29,7 @@ class Game < ApplicationRecord
   end
 
   def remaining_time
-    [((started_at + GAME_DURATION) - Time.current), 0].max
+    [((started_at + GAME_DURATION) - Time.current), 0].max.round(0)
   end
 
   def time_out?

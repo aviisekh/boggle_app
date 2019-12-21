@@ -1,7 +1,7 @@
 import React from "react"
 
-const CellRow = function ({row}) {
-  const Cells = row.map(function (cell, index) {
+const CellRow = ({row}) => {
+  const Cells = row.map((cell, index) => {
     return (<td className='cell' key={index}>{cell}</td>)
   });
 
