@@ -1,0 +1,7 @@
+.board .cell {
+    width: 58px;
+    height: 58px;
+    border: 1px dotted mediumvioletred;
+    font-weight: 800;
+    text-align: center;
+}
