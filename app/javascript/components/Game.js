@@ -18,7 +18,7 @@ const initialState = {
   isGameStarted: false,
   isGameEnded: false,
   remainingTime: undefined,
-  score: {}
+  score: {eachScore: [], allScore: undefined}
 };
 
 class Game extends React.Component {
@@ -101,14 +101,23 @@ class Game extends React.Component {
 
   render() {
     return (
-      <div className="boggle">
-        <div>
-          <Board board={this.state.tiles}/>
-          {!this.state.isGameStarted && <FlareGun startGame={this.startGame} label="Start new game"/>}
-          <Timer remainingTime={this.state.remainingTime}/>
-          {this.state.isGameStarted && <WordSubmitter submitWord={this.submitWord}/> }
-          <ScoreBoard score={this.state.score}/>
-          <HallOfFame/>
+      <div className="game container">
+        <div className="row">
+          <div className="col">
+            {this.state.remainingTime ? <Timer remainingTime={this.state.remainingTime}/> : null}
+            {this.state.score.allScore ? <ScoreBoard score={this.state.score}/> : null}
+            {!this.state.isGameStarted && <FlareGun startGame={this.startGame} label="Start new game"/>}
+          </div>
+          <div className="col-6" align='center'>
+            <div className="board-wrapper">
+              <Board board={this.state.tiles}/>
+              {this.state.isGameStarted && <WordSubmitter submitWord={this.submitWord}/>}
+            </div>
+          </div>
+          <div className="col" align='center'>
+            <HallOfFame/>
+          </div>
+
         </div>
       </div>
     );

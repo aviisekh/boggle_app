@@ -1,7 +1,11 @@
-.board .cell {
+.board table td {
     width: 58px;
     height: 58px;
     border: 1px dotted mediumvioletred;
     font-weight: 800;
     text-align: center;
+}
+
+.timer{
+    background: #7fb1b9;
 }

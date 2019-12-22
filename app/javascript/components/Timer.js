@@ -10,7 +10,7 @@ const Timer = ({remainingTime}) => {
   }
 
   return (
-    <div className="timer">
+    <div className="timer mb-1  p-2">
       <span>Time Remaining:</span> {remainingTime &&
           <span>
             {minute()} mins {second()} secs
