@@ -1,9 +1,9 @@
 import React from "react"
 
-const ScoreBoard = ({foundWords}) => {
+const ScoreBoard = ({score}) => {
   return (
     <div className="ScoreBoard">
-      Found Words: {foundWords.toString()}
+      Score: {score.allScore}
     </div>
   );
 };

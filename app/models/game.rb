@@ -28,6 +28,10 @@ class Game < ApplicationRecord
     end
   end
 
+  def score
+    found_words.inject(0){|sum, element| sum+element.length}
+  end
+
   def remaining_time
     [((started_at + GAME_DURATION) - Time.current), 0].max.round(0)
   end

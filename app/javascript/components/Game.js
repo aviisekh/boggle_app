@@ -14,7 +14,7 @@ const initialState = {
   isGameStarted: false,
   isGameEnded: false,
   remainingTime: undefined,
-  foundWords: []
+  score: {}
 };
 
 class Game extends React.Component {
@@ -88,9 +88,9 @@ class Game extends React.Component {
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json.foundWords);
+        console.log(json.score);
         this.setState({
-          foundWords: json.foundWords
+          score: json.score
         });
       })
   };
@@ -103,7 +103,7 @@ class Game extends React.Component {
           {!this.state.isGameStarted && <FlareGun startGame={this.startGame} label="Start new game"/>}
           <Timer remainingTime={this.state.remainingTime}/>
           {this.state.isGameStarted && <WordSubmitter submitWord={this.submitWord}/> }
-          <ScoreBoard foundWords={this.state.foundWords}/>
+          <ScoreBoard score={this.state.score}/>
           <HallOfFame/>
         </div>
       </div>
