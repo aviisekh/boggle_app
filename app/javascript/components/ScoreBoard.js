@@ -1,11 +1,11 @@
 import React from "react"
 
-const ScoreBoard = () => {
+const ScoreBoard = ({foundWords}) => {
   return (
     <div className="ScoreBoard">
-      Score Board
+      Found Words: {foundWords.toString()}
     </div>
   );
-}
+};
 
 export default ScoreBoard
