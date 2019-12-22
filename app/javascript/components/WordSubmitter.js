@@ -5,7 +5,7 @@ const WordSubmitter = ({submitWord}) => {
     <div className="submit-word">
       <form onSubmit={submitWord}>
         <input type='text'/>
-        <button type="submit" className="btn btn-lg start-button">Submit</button>
+        <button type="submit" className="btn btn-primary">Submit</button>
       </form>
     </div>
   );

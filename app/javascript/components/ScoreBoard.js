@@ -2,7 +2,7 @@ import React from "react"
 
 const ScoreBoard = ({score}) => {
   return (
-    <div className="ScoreBoard">
+    <div className="score-board">
       Score: {score.allScore}
     </div>
   );
