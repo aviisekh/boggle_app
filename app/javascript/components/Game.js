@@ -11,13 +11,16 @@ import Timer from './Timer.js'
 import ScoreBoard from './ScoreBoard.js'
 import WordSubmitter from "./WordSubmitter";
 
-const BASE_URL = "http://localhost:3000"
+const BASE_URL = "http://localhost:3000";
+const ERROR_CLASS = 'border-danger';
 const initialState = {
   gameId: '',
   tiles: [[' ', ' ', ' ', ' '], [' ', ' ', ' ', ' '], [' ', ' ', ' ', ' '], [' ', ' ', ' ', ' ']],
   isGameStarted: false,
   isGameEnded: false,
   remainingTime: undefined,
+  inputWord: '',
+  submitterClass: '',
   score: {eachScore: [], allScore: undefined}
 };
 
@@ -79,6 +82,13 @@ class Game extends React.Component {
       })
   };
 
+  handleWordInput = (e) => {
+    this.setState({
+      inputWord: e.target.value,
+      submitterClass: ''
+    });
+  };
+
   submitWord = (e) => {
     e.preventDefault();
     console.log('submitting');
@@ -90,12 +100,20 @@ class Game extends React.Component {
       },
       body: JSON.stringify({word: e.target[0].value})
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
       .then(json => {
         console.log(json.score);
         this.setState({
-          score: json.score
+          score: json.score,
+          inputWord: ''
         });
+      })
+      .catch(error => {
+        this.setState({submitterClass: ERROR_CLASS});
       })
   };
 
@@ -111,7 +129,11 @@ class Game extends React.Component {
           <div className="col-6" align='center'>
             <div className="board-wrapper">
               <Board board={this.state.tiles}/>
-              {this.state.isGameStarted && <WordSubmitter submitWord={this.submitWord}/>}
+              {this.state.isGameStarted &&
+              <WordSubmitter inputWord={this.state.inputWord}
+                             handleWordInput={this.handleWordInput}
+                             submitWord={this.submitWord}
+                             submitterClass={this.state.submitterClass}/>}
             </div>
           </div>
           <div className="col" align='center'>

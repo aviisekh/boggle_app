@@ -1,8 +1,8 @@
 import React from "react"
 
 const ScoreBoard = ({score}) => {
-  const Rows = score.eachScore.map((row) => {
-    return <tr>
+  const Rows = score.eachScore.map((row, index) => {
+    return <tr key={index}>
       <td>{row.word}</td>
       <td>{row.score}</td>
     </tr>
