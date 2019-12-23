@@ -6,6 +6,19 @@
     text-align: center;
 }
 
+.score-board table thead{
+    color: #c2c500;
+    font-weight: 800;
+}
+
+.score-board table tbody{
+    color: #56ff00b5;
+}
+
+.score-board table td{
+    padding-left: 10px;
+}
+
 .timer{
     background: #7fb1b9;
 }

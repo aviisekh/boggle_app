@@ -6,7 +6,7 @@ class GameSerializer < ActiveModel::Serializer
   end
 
   def score
-    {each_score: object.found_words.map{|x| {word: x, score: x.length}}, all_score: object.score}
+    {each_score: object.found_words.map{|x| {word: x.downcase, score: x.length}}, all_score: object.score}
   end
 
   def tiles

@@ -12,8 +12,8 @@ const ScoreBoard = ({score}) => {
       <table className='table table-dark table-sm' id="score-table">
         <thead>
         <tr>
-          <td>Word</td>
-          <td>Score</td>
+          <td>WORD</td>
+          <td>SCORE</td>
         </tr>
         </thead>
         <tbody>

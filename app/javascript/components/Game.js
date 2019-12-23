@@ -22,7 +22,7 @@ const initialState = {
 };
 
 class Game extends React.Component {
-  state = initialState
+  state = initialState;
 
   startTimer = () => {
     var intervalId = setInterval(() => {
