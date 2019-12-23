@@ -10,6 +10,7 @@ import HallOfFame from './HallOfFame.js'
 import Timer from './Timer.js'
 import ScoreBoard from './ScoreBoard.js'
 import WordSubmitter from "./WordSubmitter";
+import NameSubmitter from "./NameSubmitter";
 
 const BASE_URL = "http://localhost:3000";
 const ERROR_CLASS = 'border-danger';
@@ -117,6 +118,23 @@ class Game extends React.Component {
       })
   };
 
+  submitName = (e) => {
+    e.preventDefault();
+    console.log('submitting name');
+    fetch(BASE_URL + "/games/" + this.state.gameId + '/submit_name', {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({name: e.target[0].value})
+    })
+      .then(res => res.json())
+      .then(json => {
+        window.location.reload();
+      });
+  };
+
   render() {
     return (
       <div className="game container">
@@ -130,11 +148,18 @@ class Game extends React.Component {
           <div className="col-6" align='center'>
             <div className="board-wrapper">
               <Board board={this.state.tiles}/>
-              {this.state.isGameStarted &&
-              <WordSubmitter inputWord={this.state.inputWord}
-                             handleWordInput={this.handleWordInput}
-                             submitWord={this.submitWord}
-                             submitterClass={this.state.submitterClass}/>}
+              {
+                this.state.isGameStarted &&
+                <WordSubmitter inputWord={this.state.inputWord}
+                               handleWordInput={this.handleWordInput}
+                               submitWord={this.submitWord}
+                               submitterClass={this.state.submitterClass}/>
+              }
+
+              {
+                this.state.isGameEnded &&
+                <NameSubmitter submitName={this.submitName}/>
+              }
             </div>
           </div>
           <div className="col" align='center'>

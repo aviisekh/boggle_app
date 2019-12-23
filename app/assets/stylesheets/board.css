@@ -6,6 +6,10 @@
     text-align: center;
 }
 
+.timer{
+    text-align:center;
+}
+
 .score-board table thead{
     color: #c2c500;
     font-weight: 800;

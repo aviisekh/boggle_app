@@ -1,5 +1,5 @@
 class Game < ApplicationRecord
-  GAME_DURATION = 2.minutes
+  GAME_DURATION = 1.minutes
   has_secure_token :token
   serialize :found_words, Array
   belongs_to :board
@@ -7,7 +7,7 @@ class Game < ApplicationRecord
   before_save { found_words.map!(&:upcase_and_strip) }
 
   def self.highscores
-    self.all.sort_by(&:score).reverse.first(10).map{|x| {score: x.score, name: x.token}}
+    self.all.sort_by(&:score).reverse.first(10).map{|x| {score: x.score, name: x.user_name||x.token}}
   end
   def started_at
     created_at

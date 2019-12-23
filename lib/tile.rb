@@ -15,7 +15,7 @@ class Tile
   end
 
   def get_adjacent_positions
-    row = (position / 4) # Ruby will round-down integer division
+    row = (position / 4)
     col = position % 4
 
     adjacent_positions = []

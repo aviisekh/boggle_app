@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_game_from_token, only: [:show, :submit_word]
+  before_action :set_game_from_token, only: [:show, :submit_word, :submit_name]
 
   def create
     board = Board.create!
@@ -18,6 +18,18 @@ class GamesController < ApplicationController
 
   def submit_word
     if @game.submit_word!(params[:word])
+      respond_to do |format|
+        format.json { render json: @game, status: :ok }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: @game, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def submit_name
+    if @game.update!(user_name: params[:name])
       respond_to do |format|
         format.json { render json: @game, status: :ok }
       end
