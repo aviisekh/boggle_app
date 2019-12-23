@@ -122,6 +122,7 @@ class Game extends React.Component {
       <div className="game container">
         <div className="row">
           <div className="col">
+            {console.log(this.props)}
             {this.state.remainingTime ? <Timer remainingTime={this.state.remainingTime}/> : null}
             {this.state.score.allScore ? <ScoreBoard score={this.state.score}/> : null}
             {!this.state.isGameStarted && <FlareGun startGame={this.startGame} label="Start new game"/>}
@@ -137,7 +138,7 @@ class Game extends React.Component {
             </div>
           </div>
           <div className="col" align='center'>
-            <HallOfFame/>
+            <HallOfFame highScores={this.props.highScores}/>
           </div>
 
         </div>

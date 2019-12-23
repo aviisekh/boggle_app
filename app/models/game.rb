@@ -6,6 +6,9 @@ class Game < ApplicationRecord
 
   before_save { found_words.map!(&:upcase_and_strip) }
 
+  def self.highscores
+    self.all.sort_by(&:score).reverse.first(10).map{|x| {score: x.score, name: x.token}}
+  end
   def started_at
     created_at
   end

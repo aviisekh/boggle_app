@@ -13,8 +13,9 @@ class App extends Component {
         <BrowserRouter>
           <div>
             <Navbar/>
+            {console.log(this.props.highScores)}
             <br/><br/>
-            <Game/>
+            <Game highScores={this.props.highScores}/>
           </div>
         </BrowserRouter>
       </div>
